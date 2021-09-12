@@ -1,0 +1,276 @@
+{% extends "base.html" %} {% block title %}Bike Details{% endblock %} {% block main_content %}
+<div class="container-fluid white-bg">
+    <div class="row">
+        <div class="col-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-inventory-tab" data-toggle="pill" href="#v-pills-inventory" role="tab" aria-controls="v-pills-home" aria-selected="true">Inventory</a>
+                <a class="nav-link" id="v-pills-product-type-tab" data-toggle="pill" href="#v-pills-product-type" role="tab" aria-controls="v-pills-product-type" aria-selected="false">Product Type</a>
+                <a class="nav-link" id="v-pills-company-tab" data-toggle="pill" href="#v-pills-company" role="tab" aria-controls="v-pills-messages" aria-selected="false">Company</a>
+                <a class="nav-link" id="v-pills-company-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-messages" aria-selected="false">User</a>
+            </div>
+        </div>
+        <div class="col" style="max-height:100%;overflow:auto">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-inventory" role="tabpanel" aria-labelledby="v-pills-inventory-tab">
+                    <h1>Inventory List</h1>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr class="bg-primary">
+                                <th scope="col">Inventory Id</th>
+                                <th scope="col">Model No</th>
+                                <th scope="col">Engine</th>
+                                <th scope="col">Stroke</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Product Type</th>
+                                <th scope="col">Displacement</th>
+                                <th scope="col">Transmission</th>
+                                <th scope="col">Torque</th>
+                                <th scope="col">Brakes</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in inventory %}
+                            <tr>
+                                <th scope="row">{{item.idinventory}}</th>
+                                <td>{{item.model_no}}</td>
+                                <td>{{item.engine}}</td>
+                                <td>{{item.stroke}}</td>
+                                <td>{{item.price}}</td>
+                                <td>{{item.year}}</td>
+                                <td>{{item.product_typecol}}</td>
+                                <td>{{item.displacement}}</td>
+                                <td>{{item.transmission}}</td>
+                                <td>{{item.torque}}</td>
+                                <td>{{item.brakes}}</td>
+                                <td>{{item.stock}}</td>
+                                <td>{{item.company_name}}</td>
+                                <td>
+                                    <form class="form-inline my-2 my-lg-0" method="POST" action="/deleteItem/{{item.idinventory}}">
+                                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Delete</button>
+                                    </form>
+                                    <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#itemModal{{loop.index}}">Update</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="v-pills-product-type" role="tabpanel" aria-labelledby="v-pills-product-type-tab">
+                    <h1>Product List</h1>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr class="bg-primary">
+                                <th scope="col">Product Id</th>
+                                <th scope="col">Product Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in product %}
+                            <tr>
+                                <th scope="row">{{item.product_id}}</th>
+                                <td>{{item.product_typecol}}</td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-company" role="tabpanel" aria-labelledby="v-pills-company-tab">
+                    <h1>Company List</h1>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr class="bg-primary">
+                                <th scope="col">Company Id</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Logo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in company %}
+                            <tr>
+                                <th scope="row">{{item.idcompany}}</th>
+                                <td>{{item.company_name}}</td>
+                                <td>{{item.logo}}</td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                    <h1>Users List</h1>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr class="bg-primary">
+                                <th scope="col">User Id</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <!-- <th scope="col">Password</th> -->
+                                <th scope="col">Gender</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Admin</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <th scope="row">{{user.user_id}}</th>
+                                <td>{{user.user_name}}</td>
+                                <td>{{user.phone}}</td>
+                                <td>{{user.email}}</td>
+                                <!-- <td>{{user.password}}</td> -->
+                                <td>{{user.gender_str}}</td>
+                                <td>{{user.address}}</td>
+                                <td>{{'Yes' if user.is_admin == 1 else 'No'}}</td>
+                                <td>
+                                    <form class="form-inline my-2 my-lg-0" method="POST" action="/deleteUser/{{user.user_id}}">
+                                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Delete</button>
+                                    </form>
+                                    <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#userModal{{loop.index}}">Update</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% for item in inventory %}
+<div class="modal fade" id="itemModal{{loop.index}}" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel{{loop.index}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itemModalLabel{{loop.index}}">Update Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/updateItem">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inventoryId{{loop.index}}">Inventory Id</label>
+                        <input type="text" class="form-control" id="inventoryId{{loop.index}}" name="idinventory" readonly="readonly" placeholder="Inventory Id" value="{{item.idinventory}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="modelNo{{loop.index}}">Model No</label>
+                        <input type="text" class="form-control" id="modelNo{{loop.index}}" name="model_no" placeholder="Model No" value="{{item.model_no}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="engine{{loop.index}}">Engine</label>
+                        <input type="text" class="form-control" id="engine{{loop.index}}" name="engine" placeholder="Engine" value="{{item.engine}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="stroke{{loop.index}}">Stroke</label>
+                        <input type="text" class="form-control" id="stroke{{loop.index}}" name="stroke" placeholder="Stroke" value="{{item.stroke}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="price{{loop.index}}">Price</label>
+                        <input type="text" class="form-control" id="price{{loop.index}}" name="price" placeholder="Price" value="{{item.price}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="product{{loop.index}}">Product Type</label>
+                        <select class="form-control" id="product{{loop.index}}" name="p_id">
+                                {% for product in product %}
+                                    <option value="{{product.product_id}}">{{product.product_typecol}}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year{{loop.index}}">Year</label>
+                        <input type="text" class="form-control" id="year{{loop.index}}" name="year" placeholder="Year" value="{{item.year}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="displacement{{loop.index}}">Displacement</label>
+                        <input type="text" class="form-control" id="displacement{{loop.index}}" name="displacement" placeholder="displacement" value="{{item.displacement}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="transmission{{loop.index}}">Transmission</label>
+                        <input type="text" class="form-control" id="transmission{{loop.index}}" name="transmission" placeholder="transmission" value="{{item.transmission}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="torque{{loop.index}}">Torque</label>
+                        <input type="text" class="form-control" id="torque{{loop.index}}" name="torque" placeholder="torque" value="{{item.torque}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="brakes{{loop.index}}">Brakes</label>
+                        <input type="text" class="form-control" id="brakes{{loop.index}}" name="brakes" placeholder="Brakes" value="{{item.brakes}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="company{{loop.index}}">Company</label>
+                        <select class="form-control" id="company{{loop.index}}" name="comp_id">
+                                        {% for company in company %}
+                                            <option value="{{company.idcompany}}">{{company.company_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %} {% for user in users %}
+<div class="modal fade" id="userModal{{loop.index}}" tabindex="-1" role="dialog" aria-labelledby="userModalLabel{{loop.index}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="POST" action="/updateUser">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel{{loop.index}}">Update Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="userid{{loop.index}}">User Id</label>
+                        <input type="text" class="form-control" id="userid{{loop.index}}" name="user_id" readonly="readonly" placeholder="userid" value="{{user.user_id}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="username{{loop.index}}">User Name</label>
+                        <input type="text" class="form-control" id="username{{loop.index}}" name="user_name" placeholder="User Name" value="{{user.user_name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone{{loop.index}}">Phone</label>
+                        <input type="text" class="form-control" id="Phone{{loop.index}}" name="phone" placeholder="Phone" value="{{user.phone}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email{{loop.index}}">Email</label>
+                        <input type="email" class="form-control" id="email{{loop.index}}" name="email" placeholder="Email" value="{{user.email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Address{{loop.index}}">Address</label>
+                        <input type="text" class="form-control" id="Address{{loop.index}}" name="address" placeholder="Address" value="{{user.address}}">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="is_admin{{loop.index}}" name="is_admin" {{ 'checked' if user.is_admin==1 else 'false'}}>
+                            <label class="form-check-label" for="is_admin{{loop.index}}">
+                                    Admin
+                                </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %} {% endblock %}

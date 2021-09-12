@@ -1,0 +1,87 @@
+body {
+    background-color: #efefef;
+}
+
+.background-img {
+    background-image: url('/img/bgm.jpg');
+    background-size: cover;
+    height: inherit
+}
+
+.background-img .container {
+    margin-top: 0px;
+    padding-top: 40px;
+}
+
+@media (min-width: 1200px) {
+    .image-container {
+        max-width: 1340px;
+    }
+}
+
+.card-img-top {
+    height: 180px;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.white-bg {
+    padding-top: 40px;
+    padding-bottom: 20px;
+    background: #FFF;
+}
+
+.content {
+    background: #FFF;
+    box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+    padding: 20px;
+    border-radius: 3px;
+    opacity: 0.93;
+}
+
+.card-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: #FFF;
+    box-shadow: 0 1px 3px rgba(36, 39, 44, .15);
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.image-container {
+    margin-top: 0px;
+}
+
+.card {
+    margin: auto
+}
+
+.brand-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: #FFF;
+    box-shadow: 0 1px 3px rgba(36, 39, 44, .15);
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.h1,
+h1 {
+    font-size: 2.0rem;
+    font-weight: 400;
+}
+
+.h4,
+h4 {
+    font-size: 2.0rem;
+    font-weight: 400;
+}
+
+.table {
+    margin-top: 20px;
+}

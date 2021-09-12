@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %}Bike Details{% endblock %} {% block main_content %} {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{ message }}</strong>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+<div class="container card-container">
+    <div class="card" style="width: 40rem;">
+        <img class="card-img-top" style="height:360px" src="/img/{{bike_data.image}}" alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-text">{{bike_data.company_name}} {{bike_data.model_no}}</h4>
+            <form method='POST' action='/bookItem/{{bike_data.idinventory}}'>
+                <button class="btn btn-primary my-2 my-sm-0">Book Now</button>
+            </form>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="bg-primary">
+
+                <th>Specifications</th>
+                <th></th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>Price:</td>
+                <td>INR-{{bike_data.price}}</td>
+
+            </tr>
+            <tr>
+
+                <td>Engine:</td>
+                <td>{{bike_data.engine}}</td>
+
+            </tr>
+            <tr>
+                <td>Stroke:</td>
+                <td>{{bike_data.stroke}}</td>
+
+            </tr>
+            <tr>
+
+                <td>Color:</td>
+                <td>{{bike_data.color}}</td>
+
+            </tr>
+            <tr>
+                <td>Year:</td>
+                <td>{{bike_data.year}}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Displacement:</td>
+                <td>{{bike_data.displacement}}</td>
+
+            </tr>
+            <tr>
+
+                <td>Transmission:</td>
+                <td>{{bike_data.transmission}}</td>
+
+            </tr>
+            <tr>
+
+                <td>Torque:</td>
+                <td>{{bike_data.torque}}</td>
+
+            </tr>
+            <tr>
+
+                <td>Brakes:</td>
+                <td>{{bike_data.brakes}}</td>
+
+            </tr>
+            <tr>
+
+                <td>In Stock:</td>
+                <td>{{bike_data.stock}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

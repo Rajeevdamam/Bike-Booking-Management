@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block main_content %}
+<div class="container card-container">
+    <h1>The Most Popular scooters</h1>
+    <div class="row">
+        {% for item in scooters %}
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/img/{{item.image}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{item.company_name}} {{item.model_no}}</h5>
+                    <p class="card-text">INR-{{item.price}}</p>
+                    <p class="card-text">(Ex-Showroom)</p>
+                    <a href="/bikeDetails/{{item.idinventory}}" class="btn btn-primary">Veiw Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

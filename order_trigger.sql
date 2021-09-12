@@ -1,0 +1,1 @@
+CREATE TRIGGER update_order AFTER INSERT ON orders FOR EACH ROW BEGIN UPDATE inventory SET stock = stock - 1 WHERE idinventory = NEW.inventory_id; UPDATE orders set ord_price = NEW.ord_price * 1.18 WHERE order_id = NEW.order_id; END
